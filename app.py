@@ -27,9 +27,8 @@ st.set_page_config(page_title="Chatbot PDF", page_icon=":robot:", layout="wide")
 st.markdown("<style>.block-container {padding-top: 1rem;}</style>", unsafe_allow_html=True)  # Tweak padding here'text-align: center;'>Chatbot PDF</style>", unsafe_allow_html=True)
 
 
-## ingresa la apikey de openai
-OPENAI_API_KEY = 'sk-proj-d49FK9rauFn4cQO7SkmUT3BlbkFJl1KccpUJT7FazTJG35uQ'
-os.environ['OPENAI_API_KEY'] = OPENAI_API_KEY
+## ingresa la apikey de openai(me piden la apikey porque no me dejo subir el repo con esa llave)
+
 
 ## Funcion para crear la base de caracteristicas
 def create_embedding(pdf):
