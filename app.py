@@ -27,8 +27,9 @@ st.set_page_config(page_title="Chatbot PDF", page_icon=":robot:", layout="wide")
 st.markdown("<style>.block-container {padding-top: 1rem;}</style>", unsafe_allow_html=True)  # Tweak padding here'text-align: center;'>Chatbot PDF</style>", unsafe_allow_html=True)
 
 
-## ingresa la apikey de openai(me piden la apikey porque no me dejo subir el repo con esa llave)
+## ingresa la apikey de openai
 
+api_key = os.getenv('OPENAI_API_KEY')
 
 ## Funcion para crear la base de caracteristicas
 def create_embedding(pdf):
@@ -121,7 +122,7 @@ def get_openai_callback():
 # Definicion de la función chat_gpt
 
 def chat_gpt(prompt):
-    response = OPENAI_API_KEY.chat.completions.create(
+    response = api_key.chat.completions.create(
         model="gpt-3.5-turbo",
         messages=[{"role": "user", "content": prompt}]
     )
