@@ -1,6 +1,7 @@
 from PyPDF2 import PdfReader
 import os
 
+
 ## Importacion de librerias de langchain
 
 from langchain_text_splitters import CharacterTextSplitter
@@ -11,14 +12,23 @@ from langchain.vectorstores import FAISS
 
 import streamlit as st
 
+## Importacion de librerias OPENAI
+
+import openai
+
+## Importacion de librerias tiktoken
+import tiktoken
+
 #Configuracion de la biblioteca streamlit
+
+
 
 st.set_page_config(page_title="Chatbot PDF", page_icon=":robot:", layout="wide")
 st.markdown("<style>.block-container {padding-top: 1rem;}</style>", unsafe_allow_html=True)  # Tweak padding here'text-align: center;'>Chatbot PDF</style>", unsafe_allow_html=True)
 
 
 ## ingresa la apikey de openai
-OPENAI_API_KEY = 'sk-sk-proj-kxJgH19FmINO7pQi8b1PT3BlbkFJ84yvC4nArG0wzwJ66tPx'
+OPENAI_API_KEY = 'sk-proj-d49FK9rauFn4cQO7SkmUT3BlbkFJl1KccpUJT7FazTJG35uQ'
 os.environ['OPENAI_API_KEY'] = OPENAI_API_KEY
 
 ## Funcion para crear la base de caracteristicas
@@ -80,6 +90,45 @@ if submit:
    with st.spinner("Escribiendo..."):
       st.experimental_rerun()
 
+# Esta función busca los fragmentos iguales en los embeddings y los devuelve
+def similarity_search(docsearch, query):
+    if docsearch is not None and query is not None:
+        return docsearch.similarity_search(query)
+    else:
+        return None
+
+# Aquí definimos la función load_qa_chain
+def load_qa_chain(llm, chain_type):
+    if chain_type == "stuff":
+        # Inicializa tu cadena de QA aquí
+        qa_chain = "Tu cadena de QA inicializada"
+        return qa_chain
+    else:
+        raise ValueError("Tipo de cadena no reconocido")
+
+# Definicion  del contexto get_openai_callback
+import contextlib
+
+@contextlib.contextmanager
+def get_openai_callback():
+    try:
+        # Preparación antes de la llamada a la API
+        print("Preparando la llamada a la API de OpenAI")
+        yield
+    finally:
+        # Limpieza después de la llamada a la API
+        print("Llamada a la API de OpenAI completada")
+
+# Definicion de la función chat_gpt
+
+def chat_gpt(prompt):
+    response = OPENAI_API_KEY.chat.completions.create(
+        model="gpt-3.5-turbo",
+        messages=[{"role": "user", "content": prompt}]
+    )
+    return response.choices[0].message.content.strip()
+ 
+ #Se llega hasta este punto, ya que es necesario tener la app paga de openai
 
 
 
